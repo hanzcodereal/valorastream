@@ -20,4 +20,4 @@ export function cleanTitle(value?: string): string {
     .trim()
     .split(/\t{2,}| {4,}/);
   return (parts[0] || value).trim();
-    }
+}

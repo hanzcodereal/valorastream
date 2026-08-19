@@ -51,6 +51,14 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .desktop-nav button { padding: 8px 0; border: 0; color: inherit; background: transparent; font-weight: 760; font-size: 14px; cursor: pointer; }
 .site-header-hero .desktop-nav button { color: white; }
 .desktop-nav button:hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+.library-nav { position: relative; display: inline-flex; }
+.library-nav-trigger { display: inline-flex; align-items: center; gap: 5px; padding: 8px 0; border: 0; color: inherit; background: transparent; font-weight: 760; font-size: 14px; cursor: pointer; }
+.library-nav-trigger svg { transition: transform 150ms ease; }
+.library-nav-trigger.open svg { transform: rotate(180deg); }
+.site-header-hero .library-nav-trigger { color: white; }
+.library-menu { position: absolute; top: calc(100% + 14px); left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; min-width: 176px; padding: 8px; gap: 2px; background: var(--paper-light); border: var(--line); border-radius: 12px; box-shadow: 4px 4px 0 var(--ink); z-index: 60; }
+.library-menu button { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border: 0; border-radius: 8px; background: transparent; color: var(--ink); font-size: 13px; font-weight: 750; text-align: left; cursor: pointer; }
+.library-menu button:hover { background: var(--yellow); }
 .header-search { justify-self: end; display: inline-flex; align-items: center; gap: 9px; height: 42px; padding: 0 16px; border: var(--line); border-radius: 12px; background: var(--paper-light); box-shadow: 3px 3px 0 var(--ink); font-size: 13px; font-weight: 800; cursor: pointer; transition: transform 150ms ease, box-shadow 150ms ease; }
 .header-search:hover { transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--ink); }
 .header-search-inverse { color: white; background: rgba(20,20,20,.25); border-color: white; box-shadow: 3px 3px 0 white; }

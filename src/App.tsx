@@ -10,6 +10,7 @@ import {
   ArrowRight,
   BookOpen,
   CalendarDays,
+  ChevronDown,
   ChevronLeft,
   ChevronRight,
   CircleAlert,
@@ -209,6 +210,58 @@ function Logo({ inverse = false }: { inverse?: boolean }) {
   );
 }
 
+const libraryNavItems = [
+  { label: "Anime", icon: Tv, path: "library?type=anime&filter=ongoing" },
+  { label: "Donghua", icon: MonitorPlay, path: "library?type=donghua&filter=latest" },
+  { label: "Comic", icon: BookOpen, path: "library?type=comic&filter=latest" },
+  { label: "Favorit", icon: Heart, path: "favorite" },
+];
+
+function LibraryNavMenu({ inverse }: { inverse: boolean }) {
+  const [open, setOpen] = useState(false);
+  const route = useRoute();
+
+  useEffect(() => setOpen(false), [route.key]);
+
+  return (
+    <div
+      className={`library-nav ${inverse ? "library-nav-inverse" : ""}`}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <button
+        className={`library-nav-trigger ${open ? "open" : ""}`}
+        onClick={() => setOpen((current) => !current)}
+        onMouseEnter={() => setOpen(true)}
+        aria-haspopup="true"
+        aria-expanded={open}
+      >
+        Library <ChevronDown size={15} />
+      </button>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            className="library-menu"
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.16 }}
+            role="menu"
+          >
+            {libraryNavItems.map((item) => {
+              const Icon = item.icon;
+              return (
+                <button key={item.label} role="menuitem" onClick={() => go(item.path)}>
+                  <Icon size={17} /> {item.label}
+                </button>
+              );
+            })}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 function Header({ homePage }: { homePage: boolean }) {
   return (
     <header className={`site-header ${homePage ? "site-header-hero" : ""}`}>
@@ -216,7 +269,7 @@ function Header({ homePage }: { homePage: boolean }) {
         <Logo inverse={homePage} />
         <nav className="desktop-nav" aria-label="Navigasi utama">
           <button onClick={() => go("home")}>Home</button>
-          <button onClick={() => go("library?type=anime&filter=ongoing")}>Library</button>
+          <LibraryNavMenu inverse={homePage} />
           <button onClick={() => go("schedule?type=anime")}>Jadwal</button>
           <button onClick={() => go("favorite")}>Favorite</button>
         </nav>
@@ -279,6 +332,7 @@ function Footer() {
         <button onClick={() => go("library?type=anime&filter=ongoing")}>Anime</button>
         <button onClick={() => go("library?type=donghua&filter=latest")}>Donghua</button>
         <button onClick={() => go("library?type=comic&filter=latest")}>Comic</button>
+        <button onClick={() => go("favorite")}>Favorit</button>
       </div>
       <div className="footer-about">
         <p className="footer-credit">Dikembangkan oleh hanz.</p>
